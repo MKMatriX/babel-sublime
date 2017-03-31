@@ -17,8 +17,6 @@ repository:
     - include: '#literal-for'
     - include: '#literal-switch'
 
-    - include: '#styled-components'           # add support for styled-components
-
     - include: '#expression'
     - include: '#literal-punctuation'
 
@@ -905,12 +903,12 @@ repository:
         (?x)
           !(?!=)| # logical-not     right-to-left   right
           &&    | # logical-and     left-to-right   both
-          \|\|    # logical-or      left-to-right   both
+          \|\|  | # logical-or      left-to-right   both
 
     - name: keyword.operator.assignment.js
       match: >-
         (?x)
-          =(?!=)  # assignment      right-to-left   both
+          =(?!=)| # assignment      right-to-left   both
 
     - name: keyword.operator.assignment.augmented.js
       match: >-
@@ -925,7 +923,7 @@ repository:
           \|=  | # assignment      right-to-left   both
           <<=  | # assignment      right-to-left   both
           >>=  | # assignment      right-to-left   both
-          >>>=   # assignment      right-to-left   both
+          >>>= | # assignment      right-to-left   both
 
     - name: keyword.operator.bitwise.js
       match: >-
@@ -1096,62 +1094,6 @@ repository:
     - name: constant.character.escape.js
       match: \\([1-7][0-7]{0,2}|[0-7]{2,3}|[bfnrtv0'"\\]|x\h{2}|u\{\h+\}|u\h{4})
 
-  # https://github.com/styled-components/styled-components
-  styled-components:
-    patterns:
-    - name: meta.styled-components.js
-      begin: (?<!\.)\b(injectGlobal|keyframes)\s*(`)
-      beginCaptures:
-        '1': {name: variable.function.tagged-template.js}
-        '2': {name: punctuation.definition.string.template.begin.js}
-      contentName: source.css.embedded.js
-      end: '`'
-      endCaptures:
-        '0': {name: punctuation.definition.string.template.end.js}
-      patterns:
-      - include: source.js.css
-
-    - name: meta.styled-components.js
-      begin: (?<!\.)\b(styled)(\.)([_$a-zA-Z][$\w]*)\s*(`)
-      beginCaptures:
-        '1': {name: variable.other.object.js}
-        '2': {name: punctuation.accessor.js}
-        '3': {name: variable.function.tagged-template.js}
-        '4': {name: punctuation.definition.string.template.begin.js}
-      contentName: source.css.embedded.js
-      end: '`'
-      endCaptures:
-        '0': {name: punctuation.definition.string.template.end.js}
-      patterns:
-      - include: source.js.css
-
-    - name: meta.styled-components.js
-      begin: (?<!\.)\b(styled)\s*(?=(\((?>(?>[^()]+)|\g<-1>)*\))\s*`)
-      captures:
-        '1': {name: meta.function-call.with-arguments.js variable.function.js}
-      end: (?<=`)
-      patterns:
-      # Like #round-brackets, but with "meta.function-call.with-arguments.js" so
-      # it can stop before the template starts.
-      - name: meta.function-call.with-arguments.js meta.group.js
-        begin: \(
-        beginCaptures:
-          '0': {name: punctuation.definition.group.begin.js}
-        end: \)
-        endCaptures:
-          '0': {name: punctuation.definition.group.end.js}
-        patterns:
-        - include: '#expression'
-      - begin: '`'
-        beginCaptures:
-          '0': {name: punctuation.definition.string.template.begin.js}
-        end: '`'
-        contentName: source.css.embedded.js
-        endCaptures:
-          '0': {name: punctuation.definition.string.template.end.js}
-        patterns:
-        - include: source.js.css
-
   literal-variable:
     patterns:
     # e.g. CONSTANT
@@ -1219,7 +1161,7 @@ repository:
         '3': {name: support.type.object.process.js}
         '4': {name: support.function.process.js}
 
-    - match: (?<!\.)\b(exports|module)(?:(\.)(children|exports|filename|id|loaded|parent))?\b
+    - match: (?<!\.)\b(exports|module(?:(\.)(children|exports|filename|id|loaded|parent)))?\b
       captures:
         '1': {name: support.type.object.module.js}
         '2': {name: keyword.operator.accessor.js}
@@ -1232,7 +1174,7 @@ repository:
 
   literal-jsx:
     contentName: meta.jsx.js
-    begin: (?<=\(|\{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wdefault|^)(?=\s*<[_$a-zA-Z])
+    begin: (?<=\(|\{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|^)(?=\s*<[_$a-zA-Z])
     end: (?<=/>|>)
     patterns:
     - include: '#jsx-tag-start'

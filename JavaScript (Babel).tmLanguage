@@ -477,10 +477,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#styled-components</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#expression</string>
 				</dict>
 				<dict>
@@ -2460,7 +2456,7 @@
 		<key>literal-jsx</key>
 		<dict>
 			<key>begin</key>
-			<string>(?&lt;=\(|\{|\[|,|&amp;&amp;|\|\||\?|:|=|=&gt;|\Wreturn|^return|\Wdefault|^)(?=\s*&lt;[_$a-zA-Z])</string>
+			<string>(?&lt;=\(|\{|\[|,|&amp;&amp;|\|\||\?|:|=|=&gt;|\Wreturn|^return|^)(?=\s*&lt;[_$a-zA-Z])</string>
 			<key>contentName</key>
 			<string>meta.jsx.js</string>
 			<key>end</key>
@@ -3617,179 +3613,6 @@
 					<string>\\([1-7][0-7]{0,2}|[0-7]{2,3}|[bfnrtv0'"\\]|x\h{2}|u\{\h+\}|u\h{4})</string>
 					<key>name</key>
 					<string>constant.character.escape.js</string>
-				</dict>
-			</array>
-		</dict>
-		<key>styled-components</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>(?&lt;!\.)\b(injectGlobal|keyframes)\s*(`)</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>variable.function.tagged-template.js</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.template.begin.js</string>
-						</dict>
-					</dict>
-					<key>contentName</key>
-					<string>source.css.embedded.js</string>
-					<key>end</key>
-					<string>`</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.template.end.js</string>
-						</dict>
-					</dict>
-					<key>name</key>
-					<string>meta.styled-components.js</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>source.js.css</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>(?&lt;!\.)\b(styled)(\.)([_$a-zA-Z][$\w]*)\s*(`)</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>variable.other.object.js</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.accessor.js</string>
-						</dict>
-						<key>3</key>
-						<dict>
-							<key>name</key>
-							<string>variable.function.tagged-template.js</string>
-						</dict>
-						<key>4</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.template.begin.js</string>
-						</dict>
-					</dict>
-					<key>contentName</key>
-					<string>source.css.embedded.js</string>
-					<key>end</key>
-					<string>`</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.template.end.js</string>
-						</dict>
-					</dict>
-					<key>name</key>
-					<string>meta.styled-components.js</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>source.js.css</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>(?&lt;!\.)\b(styled)\s*(?=(\((?&gt;(?&gt;[^()]+)|\g&lt;-1&gt;)*\))\s*`)</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>meta.function-call.with-arguments.js variable.function.js</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>(?&lt;=`)</string>
-					<key>name</key>
-					<string>meta.styled-components.js</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>begin</key>
-							<string>\(</string>
-							<key>beginCaptures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.group.begin.js</string>
-								</dict>
-							</dict>
-							<key>end</key>
-							<string>\)</string>
-							<key>endCaptures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.group.end.js</string>
-								</dict>
-							</dict>
-							<key>name</key>
-							<string>meta.function-call.with-arguments.js meta.group.js</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#expression</string>
-								</dict>
-							</array>
-						</dict>
-						<dict>
-							<key>begin</key>
-							<string>`</string>
-							<key>beginCaptures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.string.template.begin.js</string>
-								</dict>
-							</dict>
-							<key>contentName</key>
-							<string>source.css.embedded.js</string>
-							<key>end</key>
-							<string>`</string>
-							<key>endCaptures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.string.template.end.js</string>
-								</dict>
-							</dict>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>source.js.css</string>
-								</dict>
-							</array>
-						</dict>
-					</array>
 				</dict>
 			</array>
 		</dict>
